@@ -65,6 +65,7 @@ public class WalletService {
     public void wallerTxn(TxnInitPayload txnInitPayload) throws ExecutionException, InterruptedException {
         Wallet fromWallet = walletRepo.findByUserEmail(txnInitPayload.getFromUserEmail());
         Wallet toWallet = walletRepo.findByUserEmail(txnInitPayload.getToUserEmail());
+        
         TxnCompletedPayload txnCompletedPayload = TxnCompletedPayload.builder()
                 .id(txnInitPayload.getId())
                 .requestId(txnInitPayload.getRequestId())
@@ -110,6 +111,7 @@ public class WalletService {
     }
     
     public String createPaymentLink(String userEmail,double amount) {
+    	LOGGER.info("CHECKING");
     	Wallet wallet = walletRepo.findByUserEmail(userEmail);
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(keyId, keySecret);
